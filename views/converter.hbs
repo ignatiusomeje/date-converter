@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Sign in</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body>
+    <div id="container2">
+      <div id="left">
+        <a href="/logout" method="delete"><button id="signOut">Sign Out</button></a>
+      </div>
+      <h2>DATE CONVERTER</h2>
+      <a href="/history" method="post" id="history">HISTORY</a>
+      <div>
+        <form action="/query" method="post" id="query">
+          <div id="divnumber">
+            <input type='number' name="number" required="required" placeholder="Number to convert" id="number">
+          </div>
+          <div>
+            <select name="unit" id="unit">
+              <option value="seconds">Seconds</option>
+              <option value="minutes">Minutes</option>
+              <option value="hours">Hours</option>
+              <option value="days">Days</option>
+              <option value="weeks">Weeks</option>
+              <option value="months">Months</option>
+              <option value="years">Years</option>
+            </select>
+          </div>
+          <input type="submit" value="Convert" id="convert">
+        </form>
+      </div>
+      <div id="results"></div>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

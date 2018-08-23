@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Sign In</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body>
+    <div id="container">
+      <div id="left">
+        <a href="/user"><button>Sign Up</button></a>
+      </div>
+      <h2>LOGIN</h2>
+      <form method="POST" action="/login" id="login_form">
+      <div>
+        <input type='text' required="required" placeholder="Username" name="username" id="user">
+      </div>
+      <div>
+        <input type="password" required="required" placeholder="Password" name="password" id="pass">
+      </div>
+        <input type="submit" value="Sign In" id="submitLogin">
+      </form>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
