@@ -4,7 +4,7 @@
   "description": "An App that gives you the equivalent of the day/month/secs e.t.c that you entered in other format",
   "main": "index.js",
   "scripts": {
-    "start":"nodemon server/index.js -e js,hbs",
+    "start":"node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "MR EXCEL",

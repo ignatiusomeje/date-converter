@@ -84,7 +84,7 @@ $(function(){
       success: function(data){
         $('#results').empty();
 
-        $.map(data, result =>{
+        let table = $.map(data, result =>{
             let searched = `<td> Searched: ${result.number} ${result.unit}</>`;
           let gottenResult = [];
           $.each(result.results[0], (key,value) => {
@@ -92,9 +92,7 @@ $(function(){
               gottenResult.push(`<td>${key} ${value}</td>`);
             }
           })
-
-        console.log(gottenResult);
-        $('#results').append(`<table>${searched} ${gottenResult}</table>`);
+          return `<tr>${searched} ${gottenResult}</tr>`
         })
         // console.log(result);
 
@@ -108,7 +106,7 @@ $(function(){
         //     })
         //   })
         // })
-        // $('#results').append(`<table>${searched} ${gottenResult}</table>`);
+        $('#results').append(`<table>${table.join().replace(/[,]/g,'')}</table>`);
       },
       error: function(error){
         $('#results').empty();
