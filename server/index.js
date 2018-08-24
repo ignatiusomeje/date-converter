@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path')
 const {pick} = require('lodash');
+const handlebars = require('hbs');
 
 const {Users} = require('./models/Users');
 const {Query} = require('./models/queries');
@@ -13,6 +14,7 @@ mongoose.connect('mongodb://localhost:27017/dateConverter',{ useNewUrlParser: tr
 
 const App = express();
 
+handlebars.registerPartials(path.join(__dirname, '../views/partials'))
 App.set('view engine', 'hbs');
 App.use(express.static(path.join(__dirname, '../public')));
 App.use(bodyParser.json());
