@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path')
-const _ = require('lodash');
+const {pick} = require('lodash');
 
 const {Users} = require('./models/Users');
 const {Query} = require('./models/queries');
@@ -35,7 +35,7 @@ App.post('/query',authenticate, async (req, res)=>{
     
     const result = await query.save();
     let values = result.toObject()
-    let pickValues = _.pick(values,'results')
+    let pickValues = pick(values,'results')
     res.status(200).send(pickValues);
   } catch(e){
     res.status(404).send('unable convert your data');
@@ -86,7 +86,9 @@ App.post('/login', async (req, res)=>{
 App.get('/', async (req, res)=>{
   
   try{
-    res.render('index.hbs')
+    res.render('index.hbs',{
+      title: 'Sign IN'
+    })
     
   }catch(err){
     res.status(400).send(err);
@@ -94,7 +96,9 @@ App.get('/', async (req, res)=>{
 })
 App.get('/query', async (req, res)=>{
   try{
-    res.render('converter.hbs')
+    res.render('converter.hbs',{
+      title: 'Date Converter'
+    })
     
   }catch(err){
     res.redirect('/');
@@ -104,7 +108,9 @@ App.get('/query', async (req, res)=>{
 App.get('/user', async (req, res)=>{
 
   try{
-    res.render('user.hbs')
+    res.render('user.hbs',{
+      title: 'Sign UP'
+    })
     
   }catch(err){
     res.status(400).send(err);
