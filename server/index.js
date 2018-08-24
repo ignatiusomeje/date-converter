@@ -49,7 +49,7 @@ App.get('/history',authenticate, async (req, res) => {
 
   try{
     const queries = await Query.find({creator: req.user.
-    _id})
+    _id}).sort({$natural:-1});
     res.status(200).send(queries);
   }catch(e){
     res.status(404).send('Unable to find your previous queries')

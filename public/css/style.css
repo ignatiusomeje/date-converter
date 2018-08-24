@@ -58,3 +58,13 @@ select{
 #divnumber{
   margin-top: 30px;
 }
+
+table{
+  width: 100%;
+  border: 1px solid grey;
+  border-radius: 25px;
+  padding: 5px;
+}
+table td{
+  border-right: 1px solid grey;
+}

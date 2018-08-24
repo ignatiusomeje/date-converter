@@ -1,4 +1,5 @@
 let token;
+const url = 'http://localhost:3000'
 $(function(){
    
   $('#submitLogin').click(function(e){
@@ -6,14 +7,14 @@ $(function(){
     var data = $("#login_form :input").serializeArray()
 
     $.ajax({
-      url: 'http://localhost:3000/login',
+      url: `${url}/login`,
       type:'post',
       data: data,
       success: function(user){
           localStorage.setItem('converter',user.tokens.token);
         token = localStorage.getItem('converter');
         $("#pass, #user").val('');
-        window.location.href = 'http://localhost:3000/query';
+        window.location.href = `${url}/query`;
       },
       error: function(error){
         swal("Login!", "Unsuccessful", "error")
@@ -26,14 +27,14 @@ $(function(){
     var data = $('#signUp_form :input').serializeArray();
 
     $.ajax({
-      url: 'http://localhost:3000/user',
+      url: `${url}/user`,
       type: 'post',
       data : data,
       success: function(person){
               localStorage.setItem('converter',person.tokens.token);
         token = localStorage.getItem('converter')
         $("#password, #username").val('');
-        window.location.href = 'http://localhost:3000/query';
+        window.location.href = `${url}/query`;
       },
       error: function(error){
         $("#password, #username").val('');
@@ -48,7 +49,7 @@ $(function(){
     let number = $('#number').val();
     let unit = $('#unit').val();
     $.ajax({
-      url: 'http://localhost:3000/query',
+      url: `${url}/query`,
       data: {number,unit},
       type: 'post',
       beforeSend: function(jqXHR){
@@ -75,24 +76,39 @@ $(function(){
   $('#history').click(function(e){
     e.preventDefault();
     $.ajax({
-      url: 'http://localhost:3000/history',
+      url: `${url}/history`,
       type: 'get',
       beforeSend: function(jqXHR){
         jqXHR.setRequestHeader('x-auth',localStorage.getItem('converter'));
       },
-      success: function(result){
+      success: function(data){
         $('#results').empty();
-        let table = $("<table></table>")
-        result.filter(res => {
-          res.results.forEach(element => {
-            delete element._id
 
-            Object.keys(element).forEach(key =>{
-              table.append('<tr><td> ' +'<b>' + key + '</b>' + ': ' + element[key] + ' </td></tr><hr>');
-            })
+        $.map(data, result =>{
+            let searched = `<td> Searched: ${result.number} ${result.unit}</>`;
+          let gottenResult = [];
+          $.each(result.results[0], (key,value) => {
+            if (key !== '_id'){
+              gottenResult.push(`<td>${key} ${value}</td>`);
+            }
           })
+
+        console.log(gottenResult);
+        $('#results').append(`<table>${searched} ${gottenResult}</table>`);
         })
-        $('#results').append(table);
+        // console.log(result);
+
+        // let table = $("<table></table>")
+        // result.filter(res => {
+        //   res.results.forEach(element => {
+        //     delete element._id
+
+        //     Object.keys(element).forEach(key =>{
+        //       table.append('<tr><td> ' +'<b>' + key + '</b>' + ': ' + element[key] + ' </td></tr><hr>');
+        //     })
+        //   })
+        // })
+        // $('#results').append(`<table>${searched} ${gottenResult}</table>`);
       },
       error: function(error){
         $('#results').empty();
@@ -104,14 +120,14 @@ $(function(){
   $('#signOut').click(function(e){
     e.preventDefault();
     $.ajax({
-      url:'http://localhost:3000/logout',
+      url:`${url}/logout`,
       type: 'delete',
       beforeSend: function(jqXHR){
         jqXHR.setRequestHeader('x-auth',localStorage.getItem('converter'));
       },
       success: function(logout){
         swal("LogOut!", "Successful", "success");
-        window.location.href = 'http://localhost:3000'
+        window.location.href = `${url}`
       },
       error: function(error){
         swal("LogOut!", "Unsuccessful", "error")
